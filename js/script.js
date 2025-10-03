@@ -12,6 +12,11 @@ let todos = [];
     function renderTodos() {
         const list = document.getElementById('todo-list');
         list.innerHTML = '';
+        // Function if no task found
+        if (todos.length === 0) {
+            list.innerHTML = `<tr><td colspan="4" class="text-center py-4 pt-5 text-black">No Task Found</td></tr>`;
+            return;
+        }
         todos.forEach((todo, idx) => {
             const tr = document.createElement('tr');
             tr.className = "border-b";
@@ -23,9 +28,9 @@ let todos = [];
                 </td>
                 <td class="py-2 px-2">
                     <div class="flex gap-2">
-                        <button class="status-button bg-blue-500 text-white px-3 py-1 rounded" data-idx="${idx}">${todo.done ? 'UnMark' : 'Mark as Done'}</button>
-                        <button class="edit-button bg-yellow-500 text-white px-3 py-1 rounded" data-idx="${idx}">Edit</button>
-                        <button class="delete-button bg-red-500 text-white px-3 py-1 rounded" data-idx="${idx}">Delete</button>
+                        <button class="status-button bg-blue-700 font-bold text-white px-3 py-1 rounded" data-idx="${idx}">${todo.done ? 'UnMark' : 'Mark as Done'}</button>
+                        <button class="edit-button bg-yellow-600 font-bold text-white px-3 py-1 rounded" data-idx="${idx}">Edit</button>
+                        <button class="delete-button bg-red-700 font-bold text-white px-3 py-1 rounded" data-idx="${idx}">Delete</button>
                     </div>
                 </td>
             `;
@@ -64,13 +69,13 @@ let todos = [];
     const filterBtn = document.getElementById('filter-dropdown-btn');
     const filterDropdown = document.getElementById('filter-dropdown');
 
-    // Toggle dropdown on button click
+    // Toggle dropdown when button click
     filterBtn.addEventListener('click', function(e) {
         e.stopPropagation(); // Prevent event from bubbling to document
         filterDropdown.classList.toggle('hidden');
     });
 
-    // Hide dropdown if click outside
+    // Hide dropdown if clicked outside
     document.addEventListener('click', function(e) {
     if (!filterDropdown.contains(e.target) && !filterBtn.contains(e.target)) {
         filterDropdown.classList.add('hidden');
@@ -102,6 +107,12 @@ let todos = [];
         // Render filtered todos
         const list = document.getElementById('todo-list');
         list.innerHTML = '';
+        // Function if no task found
+        if (filtered.length === 0) {
+            list.innerHTML = `<tr><td colspan="4" class="text-center py-4 pt-5 text-black">No Task Found</td></tr>`;
+            filterDropdown.classList.add('hidden');
+            return;
+        }
         filtered.forEach((todo, idx) => {
             const tr = document.createElement('tr');
             tr.className = "border-b";
@@ -113,9 +124,9 @@ let todos = [];
                 </td>
                 <td class="py-2 px-2">
                     <div class="flex gap-2">
-                        <button class="status-button bg-blue-500 text-white px-3 py-1 rounded" data-idx="${idx}">${todo.done ? 'UnMark' : 'Mark as Done'}</button>
-                        <button class="edit-button bg-yellow-500 text-white px-3 py-1 rounded" data-idx="${idx}">Edit</button>
-                        <button class="delete-button bg-red-500 text-white px-3 py-1 rounded" data-idx="${idx}">Delete</button>
+                        <button class="status-button bg-blue-700 font-bold text-white px-3 py-1 rounded" data-idx="${idx}">${todo.done ? 'UnMark' : 'Mark as Done'}</button>
+                        <button class="edit-button bg-yellow-600 font-bold text-white px-3 py-1 rounded" data-idx="${idx}">Edit</button>
+                        <button class="delete-button bg-red-700 font-bold text-white px-3 py-1 rounded" data-idx="${idx}">Delete</button>
                     </div>
                 </td>
             `;
@@ -125,13 +136,15 @@ let todos = [];
         filterDropdown.classList.add('hidden');
     });
 
-    // Listener action button di list
+    // Listener action button in list
     document.getElementById('todo-list').addEventListener('click', function(e) {
+        // Delete button
         if (e.target.classList.contains('delete-button')) {
             const idx = e.target.getAttribute('data-idx');
             todos.splice(idx, 1);
             renderTodos();
         }
+        // Edit button
         if (e.target.classList.contains('edit-button')) {
             const idx = e.target.getAttribute('data-idx');
             const todo = todos[idx];
@@ -140,6 +153,7 @@ let todos = [];
             todos.splice(idx, 1);
             renderTodos();
         }
+        // Status button
         if (e.target.classList.contains('status-button')) {
             const idx = e.target.getAttribute('data-idx');
             todos[idx].done = !todos[idx].done;

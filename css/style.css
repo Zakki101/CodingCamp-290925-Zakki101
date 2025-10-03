@@ -16,9 +16,9 @@ table {
 }
 th, td {
     word-break: break-word;
-    /* Atur lebar sesuai kebutuhan */
 }
-th:nth-child(1), td:nth-child(1) { width: 40%; }
+/* Tempat atur lebar tabel */
+th:nth-child(1), td:nth-child(1) { width: 37%; }
 th:nth-child(2), td:nth-child(2) { width: 20%; }
 th:nth-child(3), td:nth-child(3) { width: 20%; }
 th:nth-child(4), td:nth-child(4) { width: 40%; }
