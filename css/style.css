@@ -1,0 +1,24 @@
+body {
+    justify-items: center;
+    align-content: center;
+    height: 100vh;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* Table Layout List */
+table {
+    table-layout: fixed;
+    width: 100%;
+}
+th, td {
+    word-break: break-word;
+    /* Atur lebar sesuai kebutuhan */
+}
+th:nth-child(1), td:nth-child(1) { width: 40%; }
+th:nth-child(2), td:nth-child(2) { width: 20%; }
+th:nth-child(3), td:nth-child(3) { width: 20%; }
+th:nth-child(4), td:nth-child(4) { width: 40%; }
